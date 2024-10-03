@@ -1,11 +1,5 @@
-<h1 align="center">
-  <img alt="Express API ES6 Starter" src="https://i.imgur.com/qeAbxtQ.png">
-</h1>
-
-> Starter application for building APIs with Express.js
-
-[![Build Status](https://travis-ci.org/mesaugat/express-api-es6-starter.svg?branch=master)](https://travis-ci.org/mesaugat/express-api-es6-starter)
-[![Codecov](https://codecov.io/gh/mesaugat/express-api-es6-starter/branch/master/graph/badge.svg)](https://codecov.io/gh/mesaugat/express-api-es6-starter)
+[![Build Status](https://travis-ci.org/sbimochan/express-api-es6-starter.svg?branch=master)](https://travis-ci.org/sbimochan/express-api-es6-starter)
+[![Codecov](https://codecov.io/gh/sbimochan/express-api-es6-starter/branch/master/graph/badge.svg)](https://codecov.io/gh/sbimochan/express-api-es6-starter)
 
 Comes with:
 
@@ -37,7 +31,7 @@ Comes with:
 
 Clone the repository, install the dependencies and get started right away.
 
-    $ git clone --depth=1 git@github.com:mesaugat/express-api-es6-starter.git <application-name>
+    $ git clone --depth=1 git@github.com:sbimochan/sample-api.git <application-name>
     $ cd <application-name>
     $ rm -rf .git
     $ yarn   # or npm install
@@ -116,7 +110,7 @@ There are multiple build targets available for different stages. These images ca
 Once the images have been built - all you need to do is run them providing a `.env` file. Like this:
 
 ```bash
-$ docker run -v "/path/to/your/.env:/app/.env" mesaugat/express-api-es6-starter:migrate
+$ docker run -v "/path/to/your/.env:/app/.env" sbimochan/express-api-es6-starter:migrate
 ```
 
 ## Using MySQL instead of PostgreSQL
@@ -156,10 +150,3 @@ Run tests with coverage.
 
 Because the highest point in the world is [8848 metres](https://en.wikipedia.org/wiki/Mount_Everest).
 
-## Contributing
-
-For contribution and feature requests, please create an [issue](https://github.com/mesaugat/express-api-es6-starter/issues) first.
-
-## License
-
-express-api-es6-starter is under [MIT License](LICENSE).
