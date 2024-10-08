@@ -27,15 +27,29 @@ services:
     links:
       - pg
       - pg_test
+
   pg:
     image: postgres:13-alpine
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=mysecretpassword
       - POSTGRES_DB=express
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+
   pg_test:
     image: postgres:13-alpine
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=mysecretpassword
       - POSTGRES_DB=express_test
+    volumes:
+      - pg_test_data:/var/lib/postgresql/data
+    ports:
+      - '5433:5432'
+
+volumes:
+  pg_data:
+  pg_test_data:

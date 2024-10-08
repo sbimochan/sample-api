@@ -29,13 +29,13 @@ RUN yarn install --prod
 FROM dev AS migrate
 WORKDIR /app
 COPY --from=dev /app /app
-CMD yarn migrate && yarn seed
+CMD ["sh", "-c", "yarn migrate && yarn seed"]
 
 # STAGE: Rollback migrations
 FROM dev AS migrate-rollback
 WORKDIR /app
 COPY --from=dev /app /app
-CMD yarn rollback
+CMD ["yarn", "rollback"]
 
 # STAGE: Prod Deploy Ready Image
 FROM node:alpine AS prod
