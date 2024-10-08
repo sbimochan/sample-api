@@ -1,47 +1,75 @@
-# STAGE: Development
-FROM node:alpine AS dev
+# Base stage for development and build purposes
+# STAGE: Base Development
+FROM node:alpine AS base
 
-# Port to listen on
+# Set working directory
+WORKDIR /app
+
+# Copy package manifests first for dependency installation
+COPY package.json yarn.lock ./
+
+# Install all dependencies
+RUN yarn install
+
+# Copy the rest of the application
+COPY . .
+
+# STAGE: Development
+FROM base AS dev
+
+# Expose the port the app will run on
 EXPOSE 8848
 
-# Copy app and install packages
-WORKDIR /app
-COPY . /app/
-
-RUN yarn
-
-# Default app commands
+# Command to run the application in development mode
 CMD ["yarn", "start:dev"]
 
-# STAGE: Builder
-FROM node:alpine AS builder
-WORKDIR /app
-COPY --from=dev /app /app
+# STAGE: Builder (Production Build)
+FROM base AS builder
+
+# Build the application for production
 RUN yarn build
 
-# STAGE: Prod Dependencies Builder
+# STAGE: Prod Dependencies Builder (for Production Environment)
 FROM node:alpine AS prod-dependencies
-WORKDIR /app
-COPY ["package.json", "yarn.lock", "./"]
-RUN yarn install --prod
 
-# STAGE: Run migrations
-FROM dev AS migrate
+# Set working directory
 WORKDIR /app
-COPY --from=dev /app /app
+
+# Copy only package manifests to optimize caching
+COPY package.json yarn.lock ./
+
+# Install only production dependencies
+RUN yarn install --production
+
+# STAGE: Run Migrations
+FROM base AS migrate
+
+# Run migrations and seed the database
 CMD ["sh", "-c", "yarn migrate && yarn seed"]
 
-# STAGE: Rollback migrations
-FROM dev AS migrate-rollback
-WORKDIR /app
-COPY --from=dev /app /app
+# STAGE: Rollback Migrations
+FROM base AS migrate-rollback
+
+# Rollback the database migrations
 CMD ["yarn", "rollback"]
 
-# STAGE: Prod Deploy Ready Image
-FROM node:alpine AS prod
-EXPOSE 8848
+# STAGE: Production (Final Image)
+FROM node:16-alpine AS prod
+
+# Set working directory
 WORKDIR /app
+
+# Copy static assets (e.g., public folder)
 COPY public /app/public
+
+# Copy built application files from builder stage
 COPY --from=builder /app/dist /app/dist
+
+# Copy production dependencies from prod-dependencies stage
 COPY --from=prod-dependencies /app/node_modules /app/node_modules
+
+# Expose the application port
+EXPOSE 8848
+
+# Command to run the application in production mode
 CMD ["node", "dist/index.js"]

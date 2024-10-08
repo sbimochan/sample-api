@@ -1,32 +1,36 @@
 version: '3.4'
+
 services:
   express-api-es6-starter:
     build:
       context: .
       target: dev
     volumes:
+      - .:/app
+      - /app/node_modules
       - .env.docker:/app/.env
     ports:
       - '8848:8848'
     depends_on:
       - pg
       - pg_test
-    links:
-      - pg
-      - pg_test
+    networks:
+      - express-network
+    command: yarn start:dev # Ensure this is the command for development
 
   migration:
     build:
       context: .
       target: migrate
     volumes:
+      - .:/app
+      - /app/node_modules
       - .env.docker:/app/.env
     depends_on:
       - pg
       - pg_test
-    links:
-      - pg
-      - pg_test
+    networks:
+      - express-network
 
   pg:
     image: postgres:13-alpine
@@ -38,6 +42,8 @@ services:
       - pg_data:/var/lib/postgresql/data
     ports:
       - '5432:5432'
+    networks:
+      - express-network
 
   pg_test:
     image: postgres:13-alpine
@@ -49,7 +55,13 @@ services:
       - pg_test_data:/var/lib/postgresql/data
     ports:
       - '5433:5432'
+    networks:
+      - express-network
 
 volumes:
   pg_data:
   pg_test_data:
+
+networks:
+  express-network:
+    driver: bridge
