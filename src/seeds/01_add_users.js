@@ -14,6 +14,7 @@ export function seed(knex) {
     .then(() => {
       return knex(TABLE_NAME).insert([
         {
+          id: 1,
           username: 'admin',
           full_name: 'Administrator',
           email: 'admin@example.com',
@@ -21,6 +22,7 @@ export function seed(knex) {
           is_admin: true
         },
         {
+          id: 2,
           username: 'user',
           full_name: 'Regular User',
           email: 'user@example.com',
