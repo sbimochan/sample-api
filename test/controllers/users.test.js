@@ -4,7 +4,7 @@ import app from '../../src/index';
 import bookshelf from '../../src/db';
 
 /**
- * Tests for '/api/users'
+ * Tests for '/api/users'.
  */
 describe('Users Controller Test', () => {
   before(done => {
