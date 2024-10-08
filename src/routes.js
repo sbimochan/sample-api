@@ -3,6 +3,7 @@ import { Router } from 'express';
 import swaggerSpec from './utils/swagger';
 import userRoutes from './routes/userRoutes';
 import roleRoutes from './routes/roleRoutes';
+import authRoutes from './routes/authRoutes';
 import movieRoutes from './routes/movieRoutes';
 
 /**
@@ -30,5 +31,6 @@ router.get('/', (req, res) => {
 router.use('/users', userRoutes);
 router.use('/movies', movieRoutes);
 router.use('/roles', roleRoutes);
+router.use('/', authRoutes);
 
 export default router;
