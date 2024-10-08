@@ -6,27 +6,27 @@ import { createMovieValidator, findMovie, updateMovieValidator } from '../valida
 const router = Router();
 
 /**
- * GET /api/movies
+ * GET /api/movies.
  */
 router.get('/', movieController.fetchAll);
 
 /**
- * GET /api/movies/:id
+ * GET /api/movies/:id.
  */
 router.get('/:id', movieController.fetchById);
 
 /**
- * POST /api/movies
+ * POST /api/movies.
  */
 router.post('/', createMovieValidator, movieController.create);
 
 /**
- * PATCH /api/movies/:id
+ * PATCH /api/movies/:id.
  */
 router.patch('/:id', findMovie, updateMovieValidator, movieController.update);
 
 /**
- * DELETE /api/movies/:id
+ * DELETE /api/movies/:id.
  */
 router.delete('/:id', findMovie, movieController.remove);
 
