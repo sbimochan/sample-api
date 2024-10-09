@@ -5,10 +5,11 @@ import * as userService from '../services/userService';
 
 // Validation schema
 const schema = Joi.object({
-  name: Joi.string()
-    .label('Name')
-    .max(90)
-    .required()
+  username: Joi.string().label('Username').max(20).required(),
+  email: Joi.string().label('Email').max(90).required(),
+  password: Joi.string().label('Password').max(100).required(),
+  fullName: Joi.string(),
+  isAdmin: Joi.bool()
 });
 
 /**
