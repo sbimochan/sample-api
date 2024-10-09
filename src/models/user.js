@@ -1,4 +1,5 @@
 import db from '../db';
+import Rent from 'models/rent';
 
 const TABLE_NAME = 'users';
 
@@ -18,6 +19,13 @@ class User extends db.Model {
    */
   get hasTimestamps() {
     return true;
+  }
+
+  /**
+   * User has many rents.
+   */
+  rents() {
+    return this.hasMany(Rent)
   }
 }
 
