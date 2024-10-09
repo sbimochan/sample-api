@@ -1,7 +1,7 @@
 {
-  "name": "express-api-es6-starter",
+  "name": "api-code-compass",
   "version": "1.0.0",
-  "description": "Express API ES6 Starter",
+  "description": "API Code Compass built for reference",
   "scripts": {
     "start": "node dist",
     "prestart": "yarn build",
@@ -38,7 +38,7 @@
     "api"
   ],
   "private": true,
-  "author": "Saugat Acharya <mesaugat@gmail.com>",
+  "author": "Bimochan Shrestha <bmochan@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "@hapi/boom": "^9.1.4",

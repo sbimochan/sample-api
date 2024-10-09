@@ -8,7 +8,14 @@ import { hashSync } from 'bcryptjs';
  * @param   {object} knex
  * @returns {Promise}
  */
-export function seed(knex) {
+export async function seed(knex) {
+  const { count } = await knex(TABLE_NAME).count('*').first();
+
+  // Prevent data from being cleared if it already exists.
+  if (+count) {
+    return;
+  }
+
   return knex(TABLE_NAME)
     .del()
     .then(() => {

@@ -1,5 +1,4 @@
-[![Build Status](https://travis-ci.org/sbimochan/express-api-es6-starter.svg?branch=master)](https://travis-ci.org/sbimochan/express-api-es6-starter)
-[![Codecov](https://codecov.io/gh/sbimochan/express-api-es6-starter/branch/master/graph/badge.svg)](https://codecov.io/gh/sbimochan/express-api-es6-starter)
+[![Codecov](https://codecov.io/gh/sbimochan/api-code-compass/branch/master/graph/badge.svg)](https://codecov.io/gh/sbimochan/api-code-compass)
 
 Comes with:
 
@@ -88,29 +87,29 @@ There are multiple build targets available for different stages. These images ca
 1. Building a production image.
 
    ```bash
-   $ docker build --target=prod -t express-api-es6-starter:prod .
+   $ docker build --target=prod -t api-code-compass:prod .
    ```
 
 2. Building an image for development.
 
    ```bash
-   $ docker build --target=dev -t express-api-es6-starter:dev .
+   $ docker build --target=dev -t api-code-compass:dev .
    ```
 
 3. Building an image that runs migration and/or rollback.
 
    ```bash
     # Docker image that runs migration and seeds.
-    $ docker build --target=migrate -t express-api-es6-starter:migrate .
+    $ docker build --target=migrate -t api-code-compass:migrate .
 
     # Docker image that rollbacks migrations.
-    $ docker build --target=migrate-rollback -t express-api-es6-starter:migrate-rollback .
+    $ docker build --target=migrate-rollback -t api-code-compass:migrate-rollback .
    ```
 
 Once the images have been built - all you need to do is run them providing a `.env` file. Like this:
 
 ```bash
-$ docker run -v "/path/to/your/.env:/app/.env" sbimochan/express-api-es6-starter:migrate
+$ docker run -v "/path/to/your/.env:/app/.env" sbimochan/api-code-compass:migrate
 ```
 
 ## Using MySQL instead of PostgreSQL
@@ -148,5 +147,4 @@ Run tests with coverage.
 
 ## Why 8848?
 
-Because the highest point in the world is [8848 metres](https://en.wikipedia.org/wiki/Mount_Everest).
-
+Because the highest point in the world is [8848 meters](https://en.wikipedia.org/wiki/Mount_Everest).

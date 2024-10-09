@@ -8,7 +8,14 @@ const TABLE_NAME = 'movies';
  * @param   {object} knex
  * @returns {Promise}
  */
-export function seed(knex) {
+export async function seed(knex) {
+  const { count } = await knex(TABLE_NAME).count('*').first();
+
+  // Prevent data from being cleared if it already exists.
+  if (+count) {
+    return;
+  }
+
   const movies = Array.from({ length: 20 }, () => ({
     name: faker.lorem.words(),
     rating: faker.number.float({ min: 1, max: 10 }),
