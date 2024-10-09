@@ -14,7 +14,7 @@ class User extends db.Model {
   }
 
   /**
-   * Table has timestamps.
+   * Get hasTimestamps.
    */
   get hasTimestamps() {
     return true;
