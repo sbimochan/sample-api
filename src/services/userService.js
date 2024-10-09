@@ -33,7 +33,12 @@ export function getUser(id) {
  * @returns {Promise}
  */
 export function createUser(user) {
-  return new User({ name: user.name }).save();
+  return new User({
+    username: user.username,
+    fullName: user.fullName,
+    password: user.password,
+    email: user.email
+  }).save();
 }
 
 /**
@@ -44,7 +49,13 @@ export function createUser(user) {
  * @returns {Promise}
  */
 export function updateUser(id, user) {
-  return new User({ id }).save({ name: user.name });
+  return new User({ id }).save({
+    username: user.username,
+    fullName: user.fullName,
+    password: user.password,
+    email: user.email,
+    isAdmin: user.isAdmin
+  });
 }
 
 /**
