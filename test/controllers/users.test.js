@@ -78,14 +78,14 @@ describe('Users Controller Test', () => {
         expect(data).to.be.an('object');
         expect(data).to.have.property('id');
         expect(data).to.have.property('username');
-        expect(data).to.have.property('full_name');
+        expect(data).to.have.property('fullName');
         expect(data).to.have.property('email');
         expect(data).to.have.property('password');
-        expect(data).to.have.property('is_admin');
-        expect(data).to.have.property('created_at');
-        expect(data).to.have.property('updated_at');
+        expect(data).to.have.property('isAdmin');
+        expect(data).to.have.property('createdAt');
+        expect(data).to.have.property('updatedAt');
         expect(data.username).to.be.equal(user.username);
-        expect(data.is_admin).to.be.equal(false);
+        expect(data.isAdmin).to.be.equal(false);
 
         done();
       });
@@ -143,9 +143,9 @@ describe('Users Controller Test', () => {
         expect(res.status).to.be.equal(200);
         expect(data).to.be.an('object');
         expect(data).to.have.property('id');
-        expect(data).to.have.property('full_name');
-        expect(data).to.have.property('updated_at');
-        expect(data.full_name).to.be.equal(user.fullName);
+        expect(data).to.have.property('fullName');
+        expect(data).to.have.property('updatedAt');
+        expect(data.fullName).to.be.equal(user.fullName);
 
         done();
       });
