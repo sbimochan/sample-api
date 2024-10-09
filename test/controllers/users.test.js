@@ -9,10 +9,11 @@ import bookshelf from '../../src/db';
 describe('Users Controller Test', () => {
   before(done => {
     bookshelf
-      .knex('users')
-      .truncate()
-      .then(() => done());
+      .knex.raw('TRUNCATE TABLE users RESTART IDENTITY CASCADE')
+      .then(() => done())
+      .catch(err => done(err));
   });
+
 
   it('should return list of users', done => {
     request(app)
@@ -26,10 +27,16 @@ describe('Users Controller Test', () => {
       });
   });
 
-  it('should not create a new user if name is not provided', done => {
+  it('should not create a new user if username is not provided', done => {
     const user = {
       noname: 'Jane Doe'
     };
+    const expectedErrors = [
+      { message: '"Username" is required', param: 'username' },
+      { message: '"Email" is required', param: 'email' },
+      { message: '"Password" is required', param: 'password' },
+      { message: '"noname" is not allowed', param: 'noname' }
+    ];
 
     request(app)
       .post('/api/users')
@@ -42,15 +49,23 @@ describe('Users Controller Test', () => {
         expect(message).to.be.equal('Bad Request');
         expect(details).to.be.an('array');
         expect(details[0]).to.have.property('message');
-        expect(details[0]).to.have.property('param', 'name');
+        expectedErrors.forEach(expectedError => {
+          const error = details.find(detail => detail.param === expectedError.param);
 
+          expect(error).to.deep.equal(expectedError);
+        });
+
+        expect(details).to.have.lengthOf(expectedErrors.length);
         done();
       });
   });
 
   it('should create a new user with valid data', done => {
     const user = {
-      name: 'Jane Doe'
+      username: 'jane_doe',
+      fullName: 'Jane Doe',
+      email: 'jane@doe.com',
+      password: 'mySecretPassword'
     };
 
     request(app)
@@ -62,10 +77,15 @@ describe('Users Controller Test', () => {
         expect(res.status).to.be.equal(201);
         expect(data).to.be.an('object');
         expect(data).to.have.property('id');
-        expect(data).to.have.property('name');
+        expect(data).to.have.property('username');
+        expect(data).to.have.property('full_name');
+        expect(data).to.have.property('email');
+        expect(data).to.have.property('password');
+        expect(data).to.have.property('is_admin');
         expect(data).to.have.property('created_at');
         expect(data).to.have.property('updated_at');
-        expect(data.name).to.be.equal(user.name);
+        expect(data.username).to.be.equal(user.username);
+        expect(data.is_admin).to.be.equal(false);
 
         done();
       });
@@ -80,9 +100,13 @@ describe('Users Controller Test', () => {
         expect(res.status).to.be.equal(200);
         expect(data).to.be.an('object');
         expect(data).to.have.property('id');
-        expect(data).to.have.property('name');
-        expect(data).to.have.property('created_at');
-        expect(data).to.have.property('updated_at');
+        expect(data).to.have.property('username');
+        expect(data).to.have.property('fullName');
+        expect(data).to.have.property('email');
+        expect(data).to.have.property('password');
+        expect(data).to.have.property('isAdmin');
+        expect(data).to.have.property('createdAt');
+        expect(data).to.have.property('updatedAt');
 
         done();
       });
@@ -102,9 +126,12 @@ describe('Users Controller Test', () => {
       });
   });
 
-  it('should update a user if name is provided', done => {
+  it('should update a user if user info provided', done => {
     const user = {
-      name: 'John Doe'
+      username: 'edited_doe',
+      fullName: 'Edited John',
+      email: 'jane@doe.com',
+      password: 'mySecretPassword'
     };
 
     request(app)
@@ -116,9 +143,9 @@ describe('Users Controller Test', () => {
         expect(res.status).to.be.equal(200);
         expect(data).to.be.an('object');
         expect(data).to.have.property('id');
-        expect(data).to.have.property('name');
+        expect(data).to.have.property('full_name');
         expect(data).to.have.property('updated_at');
-        expect(data.name).to.be.equal(user.name);
+        expect(data.full_name).to.be.equal(user.fullName);
 
         done();
       });
@@ -140,7 +167,7 @@ describe('Users Controller Test', () => {
         expect(message).to.be.equal('Bad Request');
         expect(details).to.be.an('array');
         expect(details[0]).to.have.property('message');
-        expect(details[0]).to.have.property('param', 'name');
+        expect(details[0]).to.have.property('param', 'username');
 
         done();
       });
