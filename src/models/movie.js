@@ -1,4 +1,4 @@
-import Rent from 'models/rent';
+import Rent from './rent';
 import db from '../db';
 
 const TABLE_NAME = 'movies';

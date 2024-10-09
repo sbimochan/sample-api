@@ -1,5 +1,5 @@
 import db from '../db';
-import Rent from 'models/rent';
+import Rent from './rent';
 
 const TABLE_NAME = 'users';
 
@@ -25,7 +25,7 @@ class User extends db.Model {
    * User has many rents.
    */
   rents() {
-    return this.hasMany(Rent)
+    return this.hasMany(Rent);
   }
 }
 
