@@ -20,7 +20,7 @@ export function getAllUsers() {
 export function getUser(id) {
   return new User({ id })
     .fetch()
-    .then(user => user)
+    .then((user) => user)
     .catch(User.NotFoundError, () => {
       throw Boom.notFound('User not found');
     });
@@ -65,5 +65,5 @@ export function updateUser(id, user) {
  * @returns {Promise}
  */
 export function deleteUser(id) {
-  return new User({ id }).fetch().then(user => user.destroy());
+  return new User({ id }).fetch().then((user) => user.destroy());
 }

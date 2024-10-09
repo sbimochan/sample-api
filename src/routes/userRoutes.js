@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import * as userController from '../controllers/users';
+import * as usersController from '../controllers/usersController';
 import { findUser, userValidator } from '../validators/userValidator';
 
 const router = Router();
@@ -8,26 +8,26 @@ const router = Router();
 /**
  * GET /api/users.
  */
-router.get('/', userController.fetchAll);
+router.get('/', usersController.fetchAll);
 
 /**
  * GET /api/users/:id.
  */
-router.get('/:id', userController.fetchById);
+router.get('/:id', usersController.fetchById);
 
 /**
  * POST /api/users.
  */
-router.post('/', userValidator, userController.create);
+router.post('/', userValidator, usersController.create);
 
 /**
  * PUT /api/users/:id.
  */
-router.put('/:id', findUser, userValidator, userController.update);
+router.put('/:id', findUser, userValidator, usersController.update);
 
 /**
  * DELETE /api/users/:id.
  */
-router.delete('/:id', findUser, userController.deleteUser);
+router.delete('/:id', findUser, usersController.deleteUser);
 
 export default router;
