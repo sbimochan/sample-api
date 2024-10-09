@@ -44,8 +44,14 @@ RUN yarn install --production
 # STAGE: Run Migrations
 FROM base AS migrate
 
-# Run migrations and seed the database
-CMD ["sh", "-c", "yarn migrate && yarn seed"]
+# Run migrations
+CMD ["yarn", "migrate"]
+
+# STAGE: Seed the Database
+FROM base AS seed
+
+# Seed the database
+CMD ["yarn", "seed"]
 
 # STAGE: Rollback Migrations
 FROM base AS migrate-rollback
