@@ -53,7 +53,7 @@ services:
     volumes:
       - pg_test_data:/var/lib/postgresql/data
     ports:
-      - '${TEST_DB_PORT}:${TEST_DB_PORT}'
+      - '${TEST_DB_PORT}:${DB_PORT}'
     networks:
       - express-network
 
