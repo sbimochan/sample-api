@@ -1,16 +1,11 @@
 import knexJs from 'knex';
 import bookshelf from 'bookshelf';
-
 import knexConfig from './knexfile';
+import { caseConversionPlugin } from './utils/case-plugin';
 
-import { caseConverter } from './utils/case';
-
-/**
- * Database connection.
- */
 const knex = knexJs(knexConfig);
 const db = bookshelf(knex);
 
-db.plugin(caseConverter);
+db.plugin(caseConversionPlugin);
 
 export default db;
