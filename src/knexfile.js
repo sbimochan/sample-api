@@ -15,6 +15,7 @@ let connection = {
 if (process.env.NODE_ENV === 'test') {
   connection = {
     ...connection,
+    client: process.env.DB_CLIENT,
     port: process.env.TEST_DB_PORT,
     host: process.env.TEST_DB_HOST,
     user: process.env.TEST_DB_USER,
