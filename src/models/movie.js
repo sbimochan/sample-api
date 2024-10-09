@@ -1,3 +1,4 @@
+import Rent from './rent';
 import db from '../db';
 
 const TABLE_NAME = 'movies';
@@ -18,6 +19,13 @@ class Movie extends db.Model {
    */
   get hasTimestamps() {
     return true;
+  }
+
+  /**
+   * Get rentals.
+   */
+  rentals() {
+    return this.hasMany(Rent);
   }
 }
 
